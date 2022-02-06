@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 const Find = ({ findValue, onChange }) => {
   return (
     <>
@@ -7,3 +9,8 @@ const Find = ({ findValue, onChange }) => {
 };
 
 export default Find;
+
+Find.propTypes = {
+  findValue: PropTypes.string,
+  onChange: PropTypes.func,
+};

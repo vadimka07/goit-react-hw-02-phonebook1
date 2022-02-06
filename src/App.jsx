@@ -4,6 +4,7 @@ import Form from "./components/Form/Form";
 import Find from "./components/Find/Find";
 import Contacts from "./components/Contacts/Contacts";
 import { nanoid } from "nanoid";
+import PropTypes from "prop-types";
 
 class App extends Component {
   constructor(props) {
@@ -21,7 +22,7 @@ class App extends Component {
 
   formSubmitHandler = ({ number, name }) => {
     for (const item of this.state.contacts) {
-      if (item.name === name) {
+      if (item.name.toLowerCase() === name.toLowerCase()) {
         alert(`${name} is already in contacts`);
         return;
       }
@@ -31,7 +32,7 @@ class App extends Component {
     }));
   };
 
-  handleInputFind = (event) => {
+  handlerInputFind = (event) => {
     this.setState({
       filter: event.target.value.toLowerCase(),
     });
@@ -39,7 +40,7 @@ class App extends Component {
 
   filterContacts = () => {
     return this.state.contacts.filter((element) =>
-      element.name.includes(this.state.filter)
+      element.name.toLowerCase().includes(this.state.filter)
     );
   };
 
@@ -56,7 +57,7 @@ class App extends Component {
     return (
       <div className="App">
         <Form onSubmit={this.formSubmitHandler} />
-        <Find findValue={this.state.filter} onChange={this.handleInputFind} />
+        <Find findValue={this.state.filter} onChange={this.handlerInputFind} />
         <Contacts
           contacts={filterContactsData}
           onDelete={this.handlerDeleteItem}
@@ -67,3 +68,13 @@ class App extends Component {
 }
 
 export default App;
+
+App.propTypes = {
+  contacts: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string,
+      name: PropTypes.string,
+      number: PropTypes.string,
+    })
+  ),
+};

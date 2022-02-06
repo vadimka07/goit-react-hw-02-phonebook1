@@ -1,4 +1,5 @@
 import { DeleteBtn, ListContacts } from "./Contacts.styled";
+import PropTypes from "prop-types";
 
 const Contacts = ({ contacts, onDelete }) => {
   return (
@@ -21,3 +22,7 @@ const Contacts = ({ contacts, onDelete }) => {
 };
 
 export default Contacts;
+
+Contacts.propTypes = {
+  onDelete: PropTypes.func,
+};
